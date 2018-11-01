@@ -11,12 +11,6 @@
       </div>
     </header>
 
-    <?php
-    $id = 17; // add the ID of the page where the zero is
-    $service_page = get_page($id);
-    echo $service_page->post_content;
-    ?>
-
     <!-- Portfolio Grid -->
     <section class="bg-light" id="portfolio">
       <div class="container">
@@ -27,6 +21,30 @@
           </div>
         </div>
         <div class="row">
+  <?php
+ $args = array(
+'posts_per_page'   => 5,
+'offset'           => 0,
+'category'         => '',
+'category_name'    => 'protpolio',
+'orderby'          => 'date',
+'order'            => 'DESC',
+'include'          => '',
+'exclude'          => '',
+'meta_key'         => '',
+'meta_value'       => '',
+'post_type'        => 'post',
+'post_mime_type'   => '',
+'post_parent'      => '',
+'author'     => '',
+'author_name'    => '',
+'post_status'      => 'publish',
+'suppress_filters' => true,
+'fields'           => '',
+);
+$posts_array = get_posts( $args );?>
+<?php foreach ( $posts_array as $post ) : setup_postdata( $post ); ?>
+  <?php $featured_img_url = get_the_post_thumbnail_url(get_the_ID(),'full'); ?>
           <div class="col-md-4 col-sm-6 portfolio-item">
             <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
               <div class="portfolio-hover">
@@ -34,83 +52,15 @@
                   <i class="fas fa-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="<?php echo get_template_directory_uri(); ?>/img/portfolio/01-thumbnail.jpg" alt="">
+              <img class="img-fluid" src="<?php echo $featured_img_url; ?>" alt="">
             </a>
             <div class="portfolio-caption">
-              <h4>Threads</h4>
-              <p class="text-muted">Illustration</p>
+              <h4><?php the_title(); ?></h4>
+              <p class="text-muted"><?php the_excerpt(); ?></p>
             </div>
           </div>
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="<?php echo get_template_directory_uri(); ?>/img/portfolio/02-thumbnail.jpg" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Explore</h4>
-              <p class="text-muted">Graphic Design</p>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="<?php echo get_template_directory_uri(); ?>/img/portfolio/03-thumbnail.jpg" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Finish</h4>
-              <p class="text-muted">Identity</p>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal4">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="<?php echo get_template_directory_uri(); ?>/img/portfolio/04-thumbnail.jpg" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Lines</h4>
-              <p class="text-muted">Branding</p>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal5">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="<?php echo get_template_directory_uri(); ?>/img/portfolio/05-thumbnail.jpg" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Southwest</h4>
-              <p class="text-muted">Website Design</p>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal6">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fas fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="<?php echo get_template_directory_uri(); ?>/img/portfolio/06-thumbnail.jpg" alt="">
-            </a>
-            <div class="portfolio-caption">
-              <h4>Window</h4>
-              <p class="text-muted">Photography</p>
-            </div>
-          </div>
+<?php endforeach; 
+wp_reset_postdata();?>
         </div>
       </div>
     </section>
